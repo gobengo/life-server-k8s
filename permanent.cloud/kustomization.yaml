@@ -1,0 +1,14 @@
+bases:
+- ../base
+
+resources:
+- ingress.yaml
+
+patchesStrategicMerge:
+- patch-set-solid-server-uri.yaml
+- patch-use-email-variables.yaml
+
+configMapGenerator:
+- name: permanent.cloud
+  files:
+  - pc-kustomize-variables.yaml

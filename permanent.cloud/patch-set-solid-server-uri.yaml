@@ -1,0 +1,14 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: life-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: life-server
+        env:
+        - name: SOLID_SERVER_URI
+          value: $(PUBLIC_URL)

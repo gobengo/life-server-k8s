@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: life-server
+spec:
+  selector:
+    matchLabels:
+      app: life-server
+  template:
+    metadata:
+      labels:
+        app: life-server
+    spec:
+      restartPolicy: Always
+      initContainers:
+      - name: chmod-data
+        image: busybox:latest
+        command:
+          - sh
+          - -c
+          - |
+            chmod 770 -R /usr/src/app/data
+        volumeMounts:
+        - name: files
+          mountPath: /usr/src/app/config.json
+          subPath: config.json
+        - name: life-server-data
+          mountPath: /usr/src/app/data
+      containers:
+      - name: life-server
+        image: index.docker.io/permanentcpu/life-server:6.0.2@sha256:60b4d5c31fc615b9ac2aa79566278469be59a74aaa9aa60bf36cb705e0fa389b
+        ports:
+        - containerPort: 8080
+          name: http
+        envFrom:
+        - configMapRef:
+            name: life-server-env
+        volumeMounts:
+        - name: files
+          mountPath: /usr/src/app/config.json
+          subPath: config.json
+        - name: life-server-data
+          mountPath: /usr/src/app/data
+      volumes:
+      - name: files
+        configMap:
+          name: life-server-files
+      - name: life-server-data
+        persistentVolumeClaim:
+          claimName: life-server-data

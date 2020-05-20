@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: life-server-local
+spec:
+  rules:
+    - host: $(PUBLIC_HOST)
+      http:
+        paths:
+        - backend:
+            serviceName: life-server
+            servicePort: http

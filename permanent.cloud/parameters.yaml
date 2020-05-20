@@ -1,0 +1,18 @@
+"@context": https://permanent.cloud/installer/v0
+kind: AppParametersConfiguration
+schema:
+  type: object
+  properties:
+    emailHost:
+      type: string
+      description: Host of your email service
+    emailPort:
+      type: number
+      description: Port of your email service
+    emailAuthUser:
+      type: string
+      description: User of your email service
+    emailAuthPass:
+      type: string
+      description: Password of your email service
+      isCredential: true

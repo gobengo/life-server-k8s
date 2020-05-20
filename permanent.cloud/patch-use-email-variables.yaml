@@ -1,0 +1,20 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: life-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: life-server
+        env:
+        - name: SOLID_EMAIL_HOST
+          value: $(emailHost)
+        - name: SOLID_EMAIL_PORT
+          value: $(emailPort)
+        - name: SOLID_EMAIL_AUTH_USER
+          value: $(emailAuthUser)
+        - name: SOLID_EMAIL_AUTH_PASSWORD
+          value: $(emailAuthPassword)
